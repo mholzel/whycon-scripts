@@ -1,0 +1,3 @@
+apt-get update        # Fetches the list of available updates
+apt-get upgrade       # Strictly upgrades the current packages
+apt-get dist-upgrade  # Installs updates (new ones)
