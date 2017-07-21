@@ -37,7 +37,7 @@
 # these 3 redundant SDL libs to get it working out of the box)
 		apt-get update \
 	&& \
-		apt-get upgrade \
+		apt-get upgrade -y \
 	&& \
 		apt-get install -y \
 			libsdl1.2-dev \
