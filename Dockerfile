@@ -14,6 +14,4 @@ FROM 	pcess/whycon
 # Clone the necessary git repos into the current folder 
 RUN 	git clone https://github.com/pcess/whycon-scripts.git
 
-COPY 	run /whycon-scripts/
-
 ENTRYPOINT ["/bin/bash","/whycon-scripts/run"]
