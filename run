@@ -30,5 +30,5 @@ for webcam in /dev/video* ; do
 done
 # Go back to the previous directory
 cd -
-
+bash
 exec "$@"

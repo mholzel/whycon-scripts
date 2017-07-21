@@ -14,7 +14,7 @@
 # whycon, you should stop the containers 
 # by running the script 
 #
-# ./docker_stop_remove_all
+# ./docker_close_all
 # 
 # since closing the docker terminals is 
 # note enough to ensure a proper 

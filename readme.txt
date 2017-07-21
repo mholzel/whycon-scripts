@@ -18,7 +18,7 @@ whycon for each available webcam.
 When you are finished with whycon, 
 you should call the 
 
-./docker_stop_remove_all
+./docker_close_all
 
 script to ensure that all of the resources
 are properly released. 

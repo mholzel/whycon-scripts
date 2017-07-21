@@ -22,7 +22,7 @@
 # Finally, note that these scripts are 
 # called in succession inside 
 #
-# ./docker_stop_remove_all
+# ./docker_close_all
 #
 # so that you can simply call that 
 # script instead of calling this one 

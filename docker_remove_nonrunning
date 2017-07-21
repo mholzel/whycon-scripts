@@ -17,7 +17,7 @@
 # if you want to stop and remove the 
 # containers in one step, you can call 
 #
-# ./docker_stop_remove_all
+# ./docker_close_all
 #
 # which executes both of these tasks 
 # for you.   
