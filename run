@@ -24,7 +24,6 @@ for webcam in /dev/video* ; do
 	echo "Starting video from $webcam"
 
 	# Now, in a separate terminal start a whycon instance for this camera. 
-	# ./whycon $webcam 1 nolog novideo
 	./whycon $webcam 1 nolog novideo &
 
 done
