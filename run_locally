@@ -50,3 +50,4 @@ done
 
 # Go back to the previous directory
 cd -
+bash
