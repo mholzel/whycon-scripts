@@ -11,5 +11,5 @@
 # 
 ########################################
 ########################################
-docker build --no-cache -t pcess/whycon-with-scripts:latest .
-docker push pcess/whycon-with-scripts
+docker build --no-cache -t pcess/whycon:with-scripts .
+docker push pcess/whycon:with-scripts

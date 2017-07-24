@@ -29,13 +29,31 @@
 # and the "env" and "volume commands to docker"
 xhost local:root
 
+# Assign a base port if one is not passed
+port=$1
+if [ -z $port ]; then 
+	port=8123
+fi
+
+# Grab this ip address. As far as I can tell, 
+# you can't easily grab it inside of a Docker 
+# container, so we need to pass it in as a 
+# parameter to be displayed in the GUI
+ip=$(/sbin/ip route|awk '/default/ { print $3 }')
+
 # For each of the connected cameras, start a new docker container
 for webcam in /dev/video* ; do
 
-	# Now, in a separate terminal start a docker container for this camera
+	# Start a docker container for this camera
 	gnome-terminal -e "docker run -it \
-			    --env=\"DISPLAY\" \
-			    --volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" \
-			    --device=$webcam \
-			    pcess/whycon-with-scripts"
+		 	-p $port:$port \
+		    	--env=\"DISPLAY\" \
+		    	--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" \
+		    	--device=$webcam \
+		    	pcess/whycon:with-scripts $ip $port"
+
+	# Increment the port number
+	port=$((port + 1))
+
 done
+bash
