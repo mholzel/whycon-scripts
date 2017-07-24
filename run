@@ -1,53 +1,59 @@
 ########################################
 ########################################
 #
-# This script will run whycon on your 
-# local machine. This is not preferred. 
-# It is preferred that you run whycon 
-# in Docker containers to ensure that 
-# the build environment is properly
-# configured.
+# This script is the preferred way of
+# running whycon. Specifically, this 
+# script will start a Docker container
+# for each available webcam and run 
+# whycon in each of those containers. 
+#
+# You should be able to use this script
+# out of the box, without having to 
+# run any of the build scripts. Just 
+# note that when you are done with 
+# whycon, you should stop the containers 
+# by running the script 
+#
+# ./docker_close_all
 # 
-# Nonetheless, if you are dead-set on 
-# running locally, then this script  
-# will run whycon for each of the 
-# connected cameras. 
-# 
+# since closing the docker terminals is 
+# note enough to ensure a proper 
+# shutdown. 
+#
 ########################################
 ########################################
-# 
-# Assign a base ip address and port and if one they are
-# not passed. If this code runs on the host machine, then 
-# you actually shouldn't need to specify the IP since 
-# it will be grabbed inside of the c-code. However, 
-# if you run inside of a Docker container, that will not
-# work. Essentially, it will always report the localhost 
-# address. So it needs to be passed as an argument so that 
-# the gui displays the correct value.
+
+# First, make sure that the x11 server is started. 
+# You need this to view the output of the cameras. 
+# If you don't want this, you can comment out this line
+# and the "env" and "volume commands to docker"
+xhost local:root
+
+# Assign a base port if one is not passed
 port=$1
 if [ -z $port ]; then 
 	port=8123
 fi
 
-ip=$2
-echo $ip
+# Grab this ip address. As far as I can tell, 
+# you can't easily grab it inside of a Docker 
+# container, so we need to pass it in as a 
+# parameter to be displayed in the GUI
+ip=$(/sbin/ip route|awk '/default/ { print $3 }')
 
-# Get the directory of this file
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $DIR/../whycon/whycon-orig/bin/
-
+# For each of the connected cameras, start a new docker container
 for webcam in /dev/video* ; do
 
-	echo "Starting video from $webcam"
-
-	# Start a whycon instance for this camera. 
-	./whycon $webcam 1 nolog novideo $port $ip &
+	# Start a docker container for this camera
+	gnome-terminal -e "docker run -it \
+		 	-p $port:$port \
+		    	--env=\"DISPLAY\" \
+		    	--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" \
+		    	--device=$webcam \
+		    	pcess/whycon:with-scripts $ip $port"
 
 	# Increment the port number
 	port=$((port + 1))
 
 done
-
-# Go back to the previous directory
-cd -
 bash

@@ -1,0 +1,52 @@
+########################################
+########################################
+#
+# This script will run whycon on your 
+# local machine. This is not preferred. 
+# It is preferred that you run whycon 
+# in Docker containers to ensure that 
+# the build environment is properly
+# configured.
+# 
+# Nonetheless, if you are dead-set on 
+# running locally, then this script  
+# will run whycon for each of the 
+# connected cameras. 
+# 
+########################################
+########################################
+# 
+# Assign a base ip address and port and if one they are
+# not passed. If this code runs on the host machine, then 
+# you actually shouldn't need to specify the IP since 
+# it will be grabbed inside of the c-code. However, 
+# if you run inside of a Docker container, that will not
+# work. Essentially, it will always report the localhost 
+# address. So it needs to be passed as an argument so that 
+# the gui displays the correct value.
+port=$1
+if [ -z $port ]; then 
+	port=8123
+fi
+
+ip=$2
+echo $ip
+
+# Get the directory of this file
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/../whycon/whycon-orig/bin/
+
+for webcam in /dev/video* ; do
+
+	echo "Starting video from $webcam"
+
+	# Start a whycon instance for this camera. 
+	./whycon $webcam 1 nolog novideo $port $ip &
+
+	# Increment the port number
+	port=$((port + 1))
+
+done
+
+# Go back to the previous directory
+cd -
