@@ -42,5 +42,9 @@ make
 checkinstall -y
 
 # Build whycon
-cd ../whycon-orig/src/
+cd ../whycon-orig
 make 
+
+# Run it
+cd ../../whycon-scripts
+./run_locally

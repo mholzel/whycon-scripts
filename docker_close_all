@@ -10,4 +10,4 @@
 ########################################
 ########################################
 ./docker_stop_all
-./docker_remove_nonrunning
+docker rm $(docker ps -q -a)
