@@ -11,7 +11,7 @@ is guaranteed to be properly configured
 If you want to run inside docker 
 containers, you simply need to call 
 
-./run_in_docker
+./run
 
 to start a docker container running 
 whycon for each available webcam. 
@@ -32,4 +32,4 @@ sudo ./build
 after which you can run whycon for each 
 of the available cameras by calling 
 
-./run
+./run_locally

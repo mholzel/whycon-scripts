@@ -17,7 +17,7 @@
 # 
 # To use the Docker images and run 
 # whycon out of the box, just run the 
-# script: ./run_in_docker 
+# script: ./run 
 # which should be in this directory.
 # That script will take care of 
 # everything for you.
@@ -26,9 +26,9 @@
 # code on your local machine, then you 
 # should only need to run this script 
 # once. If it was successful, then you 
-# can run whycon by calling the ./run 
-# script which is also in this 
-# directory.
+# can run whycon by calling the 
+# ./run_locally script which is also 
+# in this directory.
 # 
 ########################################
 ########################################

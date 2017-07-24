@@ -5,7 +5,7 @@
 # containers which have already been 
 # stopped. Specifically, if you ran 
 #
-# ./run_in_docker
+# ./run
 # 
 # and then you stopped the docker 
 # containers:
