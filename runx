@@ -1,0 +1,28 @@
+# First, make sure that the x11 server is started. 
+# You need this to view the output of the cameras. 
+# If you don't want this, you can comment out this line
+# and the "env" and "volume commands to docker"
+xhost local:root
+
+# Assign a base port if one is not passed
+port=$1
+if [ -z $port ]; then 
+	port=8123
+fi
+
+# Grab this ip address. As far as I can tell, 
+# you can't easily grab it inside of a Docker 
+# container, so we need to pass it in as a 
+# parameter to be displayed in the GUI
+ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
+
+
+
+webcam=/dev/video0
+docker run -it \
+--privileged \
+-p $port:$port \
+--env=\"DISPLAY\" \
+--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+--device=$webcam \
+pcess/whycon:with-scripts $ip $port

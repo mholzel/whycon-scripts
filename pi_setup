@@ -1,0 +1,25 @@
+sudo apt-get -y update
+sudo apt-get -y dist-upgrade
+sudo apt-get -y upgrade
+sudo apt-get install -y \
+	libsdl1.2-dev \
+	libsdl-ttf2.0-dev \
+	libsdl2-ttf-dev \
+	git \
+	checkinstall \
+	make \
+	gcc \
+	pi-bluetooth \
+	blueman \
+	pulseaudio \ 
+	pavucontrol \ 
+	pulseaudio-module-bluetooth
+
+sudo apt-get -y autoremove
+
+sudo curl -sSL https://get.docker.com | sh
+
+sudo usermod -aG docker pi
+
+
+
